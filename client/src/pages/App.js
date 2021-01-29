@@ -2,7 +2,11 @@ import React from "react";
 import withRoot from "../withRoot";
 
 const App = () => {
-  return <div>App</div>;
+  return (
+    <div>
+      UrbanSea...
+    </div>
+  );
 };
 
 export default withRoot(App);
