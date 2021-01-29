@@ -1,12 +1,59 @@
-import React from "react";
+import React, { useContext } from "react";
 import { withStyles } from "@material-ui/core/styles";
-// import AppBar from "@material-ui/core/AppBar";
-// import Toolbar from "@material-ui/core/Toolbar";
-// import Map from "@material-ui/icons/Map";
-// import Typography from "@material-ui/core/Typography";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import MapIcon from "@material-ui/icons/Map";
+import Typography from "@material-ui/core/Typography";
+import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
+
+
+import Context from '../context';
+import Signout from '../components/Auth/Signout';
+
 
 const Header = ({ classes }) => {
-  return <div>Header</div>;
+  const mobileSize = useMediaQuery('(max-width: 650px)');
+  const { state } = useContext(Context);
+  const { currentUser } = state;
+
+  return (
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <div className={classes.grow}>
+            <MapIcon className={classes.icon} />
+            <Typography
+              className={mobileSize ? classes.mobile : ""}
+              comments="h1"
+              variant="h6"
+              color="inherit"
+              noWrap
+            >
+              UrbanSea
+            </Typography>
+          </div>
+          {currentUser && (
+            <div className={classes.grow}>
+              <img 
+                className={classes.picture}
+                src={currentUser.picture}
+                alt={currentUser.name}
+              />
+              <Typography
+                className={mobileSize ? classes.mobile : ""}
+                variant="h5"
+                color="inherit"
+                noWrap
+              >
+                {currentUser.name}
+              </Typography>
+            </div>
+          )}
+          <Signout />
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
 };
 
 const styles = theme => ({
@@ -20,7 +67,7 @@ const styles = theme => ({
   },
   icon: {
     marginRight: theme.spacing.unit,
-    color: "green",
+    color: "white",
     fontSize: 45
   },
   mobile: {
